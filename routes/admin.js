@@ -79,7 +79,6 @@ router.route('/login').post((req,res)=>{
     })
 });
  router.route('/changepassword').post((req,res)=>{
-  if(req.isAuthenticated()){
   Admin.findOne({ email: req.body.email })
   .then((admin) => {
       admin.changePassword(req.body.oldpassword, req.body.newpassword,(err, admin) => {
@@ -91,9 +90,5 @@ router.route('/login').post((req,res)=>{
   .catch((err)=>{
     res.json("Admin  Not  Found")
   })
-}
-else{
-  res.redirect('/login');
-}
 });
  module.exports=router;

@@ -26,9 +26,11 @@ passport.use('adminLocal',Admin.createStrategy());
 passport.serializeUser(Admin.serializeUser());
 passport.deserializeUser(Admin.deserializeUser());
 const adminRouter=require('./routes/admin');
-const corporateRouter=require('./routes/corporate')
+const corporateRouter=require('./routes/corporate');
+const vehicleRouter=require('./routes/vehicle');
 app.use('/admin',adminRouter);
-app.use('/corporate',corporateRouter)
+app.use('/corporate',corporateRouter);
+app.use('/vehicle',vehicleRouter);
 app.listen(port,function(){
     console.log("Server started Successfully");
 });

@@ -26,6 +26,9 @@ const adminSchema=new Schema(
         },
         phonenumber:{
             type:String
+        },
+        description:{
+            type:String
         }
     },
     {

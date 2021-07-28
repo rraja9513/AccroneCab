@@ -12,7 +12,7 @@ router.route('/').post((req, res) => {
   });
   router.route('/add').post((req,res)=>{
     const name = req.body.hour;
-    const email = req.body.kilometer;
+    const email = req.body.email;
     const profilepicture=req.body.profilepicture;
     const role=req.body.role;
     const password=req.body.password;

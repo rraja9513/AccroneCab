@@ -33,10 +33,14 @@ const adminRouter=require('./routes/admin');
 const corporateRouter=require('./routes/corporate');
 const vehicleRouter=require('./routes/vehicle');
 const subadminRouter=require('./routes/subadmin');
+const roleRouter=require('./routes/role');
+const rentalRouter=require('./routes/rental');
 app.use('/admin',adminRouter);
 app.use('/corporate',corporateRouter);
 app.use('/vehicle',vehicleRouter);
 app.use('/subadmin',subadminRouter);
+app.use('/role',roleRouter);
+app.use('/rental',rentalRouter);
 app.listen(port,function(){
     console.log("Server started Successfully");
 });

@@ -1,8 +1,11 @@
 const mongoose=require('mongoose');
 const passportLocalMongoose=require('passport-local-mongoose');
 const Schema=mongoose.Schema;
-const adminSchema=new Schema(
+const subadminSchema=new Schema(
     {
+        name:{
+            type: String,
+        },
         email:{
             type: String,
             required: true,
@@ -14,24 +17,12 @@ const adminSchema=new Schema(
         },
         role:{
             type:String
-        },
-        username:{
-            type:String
-        },
-        address:{
-            type:String
-        },
-        dateofbirth:{
-            type:String
-        },
-        phonenumber:{
-            type:String
         }
     },
     {
         timestamps:true,
     }
 );
-adminSchema.plugin(passportLocalMongoose,{usernameField: 'email'});
-const Admin=mongoose.model('Admin',adminSchema);
-module.exports=Admin;
+subadminSchema.plugin(passportLocalMongoose,{usernameField: 'email'});
+const Subadmin=mongoose.model('Subadmin',subadminSchema);
+module.exports=Subadmin;

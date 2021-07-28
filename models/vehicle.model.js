@@ -3,24 +3,76 @@ const Schema=mongoose.Schema;
 const vehicleSchema=new Schema(
     {
       servicename:{
-          type:String,
+          type:String
       },
       providername:{
-          type:String,
-      },
-      capacity:
-          {
-              type:String,
-          },
-      baseprice:{
-        type:String, 
-      },
-      pricecalculations:{
           type:String
       },
       serviceimage:{
-          type:String
-      }
+        type:String
+    },
+    pricecalculations:{
+        type:String
+    },
+    baseprice:{
+        type:String
+      },
+      capacity:
+          {
+              type:String
+          },
+          description:{
+              type:String
+          },
+          outstationfare:{
+            outstationonewayprice:{
+                type:String
+            },
+            outstationroundtripprice:{
+                type:String
+            },
+            driverbata:{
+                type:String
+            }
+          },
+          rentalfare:{
+              rentalperhour:{
+                  type:String
+              }
+          },
+          peaktime:{
+              time:{
+                  type:String
+              },
+              peakprice:{
+                  type:String
+              }
+          },
+          nightfare:{
+              nightfarepercentage:{
+                  type:String
+              }
+          },
+          clusteredprice:{
+              cityname:{
+                  type:String
+              },
+              distance:{
+                  type:String
+              },
+              distanceprice:{
+                  type:String
+              },
+              citylimit:{
+                  type:String
+              },
+              minuteprice:{
+                  type:String
+              }
+          }
+          
+
+
     },
     {
         timestamps:true,

@@ -6,11 +6,6 @@ router.route('/').post((req, res) => {
       .then(admins => res.json(admins))
       .catch(err => res.status(400).json('Error: ' + err));
   });
-  router.route('/roles').post((req, res) => {
-    Admin.find()
-      .then(admins => res.json(admins))
-      .catch(err => res.status(400).json('Error: ' + err));
-  });
 router.route('/signup').post((req,res)=>{
   const Admins=new Admin({email:req.body.email,profilepicture:req.body.profilepicture,role:req.body.role,username:req.body.username,address:req.body.address,dateofbirth:req.body.dateofbirth,phonenumber:req.body.phonenumber});   
         Admin.register(Admins,req.body.password,function(err,admin){

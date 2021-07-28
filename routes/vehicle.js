@@ -13,17 +13,50 @@ router.route('/').post((req, res) => {
   router.route('/add').post((req,res)=>{
     const servicename = req.body.servicename;
     const providername = req.body.providername;
-    const capacity=req.body.capacity;
-    const baseprice=req.body.baseprice;
-    const pricecalculations=req.body.pricecalculations;
     const serviceimage=req.body.serviceimage;
+    const pricecalculations=req.body.pricecalculations;
+    const baseprice=req.body.baseprice;
+    const capacity=req.body.capacity;
+    const description=req.body.description;
+    const outstationfare={
+      outstationonewayprice:req.body.outstationonewayprice,
+      outstationroundtripprice:req.body.outstationroundtripprice,
+      driverbata:req.body.driverbata
+    };
+    const rentalfare={
+      rentalperhour:req.body.rentalperhour
+    };
+    const peaktime={
+      time:req.body.time,
+      peakprice:req.body.peakprice
+    };
+    const nightfare={
+      nightfarepercentage:req.body.nightfarepercentage
+    };
+    const clusteredprice={
+      cityname:req.body.cityname,
+      distance:req.body.distance,
+      distanceprice:req.body.distanceprice,
+      citylimit:req.body.citylimit,
+      minuteprice:req.body.minuteprice
+    };
+
+    
+    
+    
     const newVehicle=new Vehicle({
         servicename,
         providername,
-        capacity,
-        baseprice,
+        serviceimage,
         pricecalculations,
-        serviceimage
+        baseprice,
+        capacity,
+        description,
+        outstationfare,
+        rentalfare,
+        peaktime,
+        nightfare,
+        clusteredprice 
     })
     newVehicle.save()
   .then(() => res.json('Vehicle added!'))
@@ -34,10 +67,33 @@ router.route('/').post((req, res) => {
     .then(vehicle => {
       vehicle.servicename = req.body.servicename;
       vehicle.providername = req.body.providername;
-      vehicle.capacity = req.body.capacity;
-      vehicle.baseprice =req.body.baseprice;
-      vehicle.pricecalculations=req.body.pricecalculations;
       vehicle.serviceimage=req.body.serviceimage;
+      vehicle.pricecalculations=req.body.pricecalculations;
+      vehicle.baseprice =req.body.baseprice;
+      vehicle.capacity = req.body.capacity;
+      vehicle.description=req.body.description;
+      vehicle.outstationfare={
+        outstationonewayprice:req.body.outstationonewayprice,
+        outstationroundtripprice:req.body.outstationroundtripprice,
+        driverbata:req.body.driverbata
+      };
+      vehicle.rentalfare={
+        rentalperhour:req.body.rentalperhour
+      };
+      vehicle.peaktime={
+        time:req.body.time,
+        peakprice:req.body.peakprice
+      };
+      vehicle.nightfare={
+        nightfarepercentage:req.body.nightfarepercentage
+      };
+      vehicle.clusteredprice={
+        cityname:req.body.cityname,
+        distance:req.body.distance,
+        distanceprice:req.body.distanceprice,
+        citylimit:req.body.citylimit,
+        minuteprice:req.body.minuteprice
+      };
       vehicle.save()
         .then(() => res.json('Vehicle updated!'))
         .catch(err => res.status(400).json('Error: ' + err));

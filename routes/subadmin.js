@@ -11,7 +11,7 @@ router.route('/').post((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
   });
   router.route('/add').post((req,res)=>{
-    const name = req.body.hour;
+    const name = req.body.name;
     const email = req.body.email;
     const profilepicture=req.body.profilepicture;
     const role=req.body.role;

@@ -4,7 +4,6 @@ const cors=require('cors');
 const session=require('express-session');
 const passport=require('passport');
 const Admin=require('./models/admin.model');
-const Subadmin=require('./models/subadmin.model');
 require('dotenv').config();
 const app=express();
 app.use(cors());
@@ -26,9 +25,6 @@ connection.once('open',()=>{
 passport.use('adminLocal',Admin.createStrategy());
 passport.serializeUser(Admin.serializeUser());
 passport.deserializeUser(Admin.deserializeUser());
-passport.use('subadminLocal',Subadmin.createStrategy());
-passport.serializeUser(Subadmin.serializeUser());
-passport.deserializeUser(Subadmin.deserializeUser());
 const adminRouter=require('./routes/admin');
 const corporateRouter=require('./routes/corporate');
 const vehicleRouter=require('./routes/vehicle');

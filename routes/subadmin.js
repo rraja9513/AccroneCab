@@ -10,6 +10,11 @@ router.route('/').post((req, res) => {
       .then(subadmins => res.json(subadmins))
       .catch(err => res.status(400).json('Error: ' + err));
   });
+  router.route('/search').post((req, res) => {
+    Subadmin.find({name : req.body.name})
+      .then(names => res.json(names))
+      .catch(err => res.status(400).json('Error: ' + err));
+  });
   router.route('/add').post((req,res)=>{
     const name = req.body.name;
     const email = req.body.email;

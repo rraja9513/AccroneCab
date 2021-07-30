@@ -11,52 +11,57 @@ router.route('/').post((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
   });
   router.route('/add').post((req,res)=>{
-    const servicename = req.body.servicename;
-    const providername = req.body.providername;
-    const serviceimage=req.body.serviceimage;
-    const pricecalculations=req.body.pricecalculations;
+    const vehiclename = req.body.vehiclename;
+    const vehicletype = req.body.vehicletype;
+    const vehicleicon=req.body.vehicleicon;
+    const seatingcapacity=req.body.seatingcapacity;
+    const pricinglogic=req.body.pricinglogic;
+    const initialwaitingtime=req.body.initialwaitingtime;
+    const additionalwaitingtime=req.body.additionalwaitingtime;
     const baseprice=req.body.baseprice;
-    const capacity=req.body.capacity;
-    const description=req.body.description;
-    const outstationfare={
-      outstationonewayprice:req.body.outstationonewayprice,
-      outstationroundtripprice:req.body.outstationroundtripprice,
-      driverbata:req.body.driverbata
+    const fareperkm=req.body.fareperkm;
+    const ridetimecharges=req.body.ridetimecharges;
+    const waitingfare=req.body.waitingfare;
+    const minimumdistance={
+      rentalplans:{
+        onehr15km:req.body.onehr15km,
+        twohr30km:req.body.twohr30km,
+        fourhr40km:req.body.fourhr40km,
+        eighthr80km:req.body.eighthr80km
+      }
+      
     };
-    const rentalfare={
-      rentalperhour:req.body.rentalperhour
+    const outstation={
+      basekm180for12hr:{
+        basepriceperday180:req.body.basepriceperday180,
+        after180km:req.body.after180km,
+        dailyallowance180:req.body.dailyallowance180,
+        bookingfees180:req.body.bookingfees180,
+        taxes180:req.body.taxes180
+      },
+      basekm250for24hr:{
+        basepriceperday250:req.body.basepriceperday250,
+        after250km:req.body.after250km,
+        dailyallowance250:req.body.dailyallowance250,
+        bookingfees250:req.body.bookingfees250,
+        taxes250:req.body.taxes250
+      },
+      
     };
-    const peaktime={
-      time:req.body.time,
-      peakprice:req.body.peakprice
-    };
-    const nightfare={
-      nightfarepercentage:req.body.nightfarepercentage
-    };
-    const clusteredprice={
-      cityname:req.body.cityname,
-      distance:req.body.distance,
-      distanceprice:req.body.distanceprice,
-      citylimit:req.body.citylimit,
-      minuteprice:req.body.minuteprice
-    };
-
-    
-    
-    
     const newVehicle=new Vehicle({
-        servicename,
-        providername,
-        serviceimage,
-        pricecalculations,
-        baseprice,
-        capacity,
-        description,
-        outstationfare,
-        rentalfare,
-        peaktime,
-        nightfare,
-        clusteredprice 
+       vehiclename,
+       vehicletype,
+       vehicleicon,
+       seatingcapacity,
+       pricinglogic,
+       initialwaitingtime,
+       additionalwaitingtime,
+       baseprice,
+       fareperkm,
+       ridetimecharges,
+       waitingfare,
+       minimumdistance,
+       outstation
     })
     newVehicle.save()
   .then(() => res.json('Vehicle added!'))
@@ -65,34 +70,42 @@ router.route('/').post((req, res) => {
   router.route('/update/:id').post((req,res)=>{
   Vehicle.findById(req.params.id)
     .then(vehicle => {
-      vehicle.servicename = req.body.servicename;
-      vehicle.providername = req.body.providername;
-      vehicle.serviceimage=req.body.serviceimage;
-      vehicle.pricecalculations=req.body.pricecalculations;
-      vehicle.baseprice =req.body.baseprice;
-      vehicle.capacity = req.body.capacity;
-      vehicle.description=req.body.description;
-      vehicle.outstationfare={
-        outstationonewayprice:req.body.outstationonewayprice,
-        outstationroundtripprice:req.body.outstationroundtripprice,
-        driverbata:req.body.driverbata
+      vehicle.vehiclename = req.body.vehiclename;
+      vehicle.vehicletype = req.body.vehicletype;
+      vehicle.vehicleicon=req.body.vehicleicon;
+      vehicle.seatingcapacity=req.body.seatingcapacity;
+      vehicle.pricinglogic=req.body.pricinglogic;
+      vehicle.initialwaitingtime=req.body.initialwaitingtime;
+      vehicle.additionalwaitingtime=req.body.additionalwaitingtime;
+      vehicle.baseprice=req.body.baseprice;
+      vehicle.fareperkm=req.body.fareperkm;
+      vehicle.ridetimecharges=req.body.ridetimecharges;
+      vehicle.waitingfare=req.body.waitingfare;
+      vehicle.minimumdistance={
+        rentalplans:{
+          onehr15km:req.body.onehr15km,
+          twohr30km:req.body.twohr30km,
+          fourhr40km:req.body.fourhr40km,
+          eighthr80km:req.body.eighthr80km
+        }
+        
       };
-      vehicle.rentalfare={
-        rentalperhour:req.body.rentalperhour
-      };
-      vehicle.peaktime={
-        time:req.body.time,
-        peakprice:req.body.peakprice
-      };
-      vehicle.nightfare={
-        nightfarepercentage:req.body.nightfarepercentage
-      };
-      vehicle.clusteredprice={
-        cityname:req.body.cityname,
-        distance:req.body.distance,
-        distanceprice:req.body.distanceprice,
-        citylimit:req.body.citylimit,
-        minuteprice:req.body.minuteprice
+      vehicle.outstation={
+        basekm180for12hr:{
+          basepriceperday180:req.body.basepriceperday180,
+          after180km:req.body.after180km,
+          dailyallowance180:req.body.dailyallowance180,
+          bookingfees180:req.body.bookingfees180,
+          taxes180:req.body.taxes180
+        },
+        basekm250for24hr:{
+          basepriceperday250:req.body.basepriceperday250,
+          after250km:req.body.after250km,
+          dailyallowance250:req.body.dailyallowance250,
+          bookingfees250:req.body.bookingfees250,
+          taxes250:req.body.taxes250
+        },
+        
       };
       vehicle.save()
         .then(() => res.json('Vehicle updated!'))

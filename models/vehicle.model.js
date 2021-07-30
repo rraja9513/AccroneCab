@@ -2,78 +2,94 @@ const mongoose=require('mongoose');
 const Schema=mongoose.Schema;
 const vehicleSchema=new Schema(
     {
-      servicename:{
+      vehiclename:{
           type:String
       },
-      providername:{
+      vehicletype:{
           type:String
       },
-      serviceimage:{
+      vehicleicon:{
         type:String
     },
-    pricecalculations:{
+    seatingcapacity:{
         type:String
     },
-    baseprice:{
+    pricinglogic:{
+            type:String
+        },
+    initialwaitingtime:{
         type:String
       },
-      capacity:
+      additionalwaitingtime:
           {
               type:String
           },
-          description:{
+          baseprice:{
               type:String
           },
-          outstationfare:{
-            outstationonewayprice:{
+          fareperkm:{
                 type:String
             },
-            outstationroundtripprice:{
+           ridetimecharges:{
                 type:String
             },
-            driverbata:{
+            waitingfare:{
                 type:String
-            }
-          },
-          rentalfare:{
-              rentalperhour:{
-                  type:String
+            },
+          minimumdistance:{
+              rentalplans:{
+                 onehr15km:{
+                     type:String
+                 },
+                 twohr30km:{
+                     type:String
+                 },
+                 fourhr40km:{
+                     type:String
+                 },
+                 eighthr80km:{
+                     type:String
+                 }
               }
           },
-          peaktime:{
-              time:{
-                  type:String
-              },
-              peakprice:{
-                  type:String
-              }
-          },
-          nightfare:{
-              nightfarepercentage:{
-                  type:String
-              }
-          },
-          clusteredprice:{
-              cityname:{
-                  type:String
-              },
-              distance:{
-                  type:String
-              },
-              distanceprice:{
-                  type:String
-              },
-              citylimit:{
-                  type:String
-              },
-              minuteprice:{
-                  type:String
-              }
-          }
-          
-
-
+         outstation:{
+             basekm180for12hr:{
+                basepriceperday180:{
+                    type:String
+                },
+                after180km:{
+                    type:String
+                },
+                dailyallowance180:{
+                    type:String
+                },
+                bookingfees180:{
+                    type:String
+                },
+                taxes180:{
+                    type:String
+                }
+             },
+             basekm250for24hr:{
+                basepriceperday250:{
+                    type:String
+                },
+                after250km:{
+                    type:String
+                },
+                dailyallowance250:{
+                    type:String
+                },
+                bookingfees250:{
+                    type:String
+                },
+                taxes250:{
+                    type:String
+                }
+             }
+         }
     },
+
     {
         timestamps:true,
     }

@@ -31,12 +31,20 @@ const vehicleRouter=require('./routes/vehicle');
 const subadminRouter=require('./routes/subadmin');
 const roleRouter=require('./routes/role');
 const rentalRouter=require('./routes/rental');
+const callradiussettingRouter=require('./routes/callradiussetting');
+const couponmanagementRouter=require('./routes/couponmanagement');
+const referalpointsettingRouter=require('./routes/referalpointsetting');
+const wagespercentageRouter=require('./routes/wagespercentage');
 app.use('/admin',adminRouter);
 app.use('/corporate',corporateRouter);
 app.use('/vehicle',vehicleRouter);
 app.use('/subadmin',subadminRouter);
 app.use('/role',roleRouter);
 app.use('/rental',rentalRouter);
+app.use('/callradiussetting',callradiussettingRouter);
+app.use('/couponmanagement',couponmanagementRouter);
+app.use('/referalpointsetting',referalpointsettingRouter);
+app.use('/wagespercentage',wagespercentageRouter)
 app.listen(port,function(){
     console.log("Server started Successfully");
 });

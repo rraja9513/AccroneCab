@@ -11,15 +11,16 @@ router.route('/').post((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
   });
   router.route('/add').post((req,res)=>{
-    const passenger={
-        pmessage:req.body.pmessage
-    };
-    const driver={
-        dmessage:req.body.dmessage
+    const messages={
+        passenger:{
+            pmessage:req.body.pmessage
+        },
+        driver:{
+            dmessage:req.body.dmessage
+        }
     };
     const newTripcancelmessagesetting=new Tripcancelmessagesetting({
-       passenger,
-       driver
+      messages
     })
     newTripcancelmessagesetting.save()
   .then(() => res.json('Tripcancelmessagesetting added!'))
@@ -28,11 +29,13 @@ router.route('/').post((req, res) => {
   router.route('/update/:id').post((req,res)=>{
   Tripcancelmessagesetting.findById(req.params.id)
     .then(tripcancelmessagesetting => {
-      tripcancelmessagesetting.passenger = {
-          pmessage:req.body.pmessage
-      };
-      tripcancelmessagesetting.driver = {
-          dmessage:req.body.dmessage
+      tripcancelmessagesetting.messages = {
+          passenger:{
+            pmessage:req.body.pmessage
+          },
+          driver:{
+            dmessage:req.body.dmessage
+          } 
       };
       tripcancelmessagesetting.save()
         .then(() => res.json('Tripcancelmessagesetting updated!'))

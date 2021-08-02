@@ -11,15 +11,16 @@ router.route('/').post((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
   });
   router.route('/add').post((req,res)=>{
-    const passenger={
-        pcontact:req.body.pcontact
-    };
-    const driver={
-        dcontact:req.body.dcontact
+    const contacts={
+        passenger:{
+            pcontact:req.body.pcontact
+        },
+        driver:{
+            dcontact:req.body.dcontact
+        }
     };
     const newSupportcontactsetting=new Supportcontactsetting({
-       passenger,
-       driver
+      contacts
     })
     newSupportcontactsetting.save()
   .then(() => res.json('Supportcontactsetting added!'))
@@ -28,11 +29,13 @@ router.route('/').post((req, res) => {
   router.route('/update/:id').post((req,res)=>{
   Supportcontactsetting.findById(req.params.id)
     .then(supportcontactsetting => {
-      supportcontactsetting.passenger = {
-          pcontact:req.body.pcontact
-      };
-      supportcontactsetting.driver = {
-          dcontact:req.body.dcontact
+      supportcontactsetting.contacts = {
+          passenger:{
+            pcontact:req.body.pcontact
+          },
+          driver:{
+            dcontact:req.body.dcontact
+          } 
       };
       supportcontactsetting.save()
         .then(() => res.json('Supportcontactsetting updated!'))

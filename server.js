@@ -35,6 +35,8 @@ const callradiussettingRouter=require('./routes/callradiussetting');
 const couponmanagementRouter=require('./routes/couponmanagement');
 const referalpointsettingRouter=require('./routes/referalpointsetting');
 const wagespercentageRouter=require('./routes/wagespercentage');
+const supportcontactsettingRouter=require('./routes/supportcontactsetting');
+const tripcancelmessagesettingRouter=require('./routes/tripcancelmessagesetting');
 app.use('/admin',adminRouter);
 app.use('/corporate',corporateRouter);
 app.use('/vehicle',vehicleRouter);
@@ -44,7 +46,9 @@ app.use('/rental',rentalRouter);
 app.use('/callradiussetting',callradiussettingRouter);
 app.use('/couponmanagement',couponmanagementRouter);
 app.use('/referalpointsetting',referalpointsettingRouter);
-app.use('/wagespercentage',wagespercentageRouter)
+app.use('/wagespercentage',wagespercentageRouter);
+app.use('/supportcontactsetting',supportcontactsettingRouter);
+app.use('/tripcancelmessagesetting',tripcancelmessagesettingRouter);
 app.listen(port,function(){
     console.log("Server started Successfully");
 });

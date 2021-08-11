@@ -37,6 +37,8 @@ const referalpointsettingRouter=require('./routes/referalpointsetting');
 const wagespercentageRouter=require('./routes/wagespercentage');
 const supportcontactsettingRouter=require('./routes/supportcontactsetting');
 const tripcancelmessagesettingRouter=require('./routes/tripcancelmessagesetting');
+const driverbenifitschemeRouter=require('./routes/driverbenifitscheme');
+const enrollfleetownerRouter=require('./routes/enrollfleetowner');
 app.use('/admin',adminRouter);
 app.use('/corporate',corporateRouter);
 app.use('/vehicle',vehicleRouter);
@@ -49,6 +51,8 @@ app.use('/referalpointsetting',referalpointsettingRouter);
 app.use('/wagespercentage',wagespercentageRouter);
 app.use('/supportcontactsetting',supportcontactsettingRouter);
 app.use('/tripcancelmessagesetting',tripcancelmessagesettingRouter);
+app.use('/driverbenifitscheme',driverbenifitschemeRouter);
+app.use('/enrollfleetowner',enrollfleetownerRouter);
 app.listen(port,function(){
     console.log("Server started Successfully");
 });

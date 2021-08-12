@@ -54,6 +54,9 @@ const enrollfleetownerSchema=new Schema(
           oczipcode:{
             type:String
         },
+        oadhar:{
+            type:String
+        },
         oadharprooffront:{
             type:String
         },

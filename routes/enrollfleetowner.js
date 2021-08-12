@@ -5,6 +5,16 @@ router.route('/').post((req, res) => {
       .then(enrollfleetowners => res.json(enrollfleetowners))
       .catch(err => res.status(400).json('Error: ' + err));
   });
+  router.route('/enrollfleetowner').post((req,res)=>{
+    Enrollfleetowner.find({},{_id:0,createdAt:true,ofirstname:true,olastname:true,ophonenumber:true,oemail:true,oadharprooffront:true})
+    .then(enrollfleetowners=>res.json(enrollfleetowners))
+    .catch(err=>res.status(400).json('Error:'+err));
+  });
+  router.route('/search').post((req, res) => {
+    Enrollfleetowner.find({oadhar : req.body.oadhar})
+      .then(enrollfleetowners => res.json(enrollfleetowners))
+      .catch(err => res.status(400).json('Error: ' + err));
+  });
   router.route('/:id').get((req, res) => {
     Enrollfleetowner.findById(req.params.id)
       .then(enrollfleetowners => res.json(enrollfleetowners))
@@ -28,6 +38,7 @@ router.route('/').post((req, res) => {
     const ocstate=req.body.ocstate;
     const occity=req.body.occity;
     const oczipcode=req.body.oczipcode;
+    const oadhar=req.body.oadhar;
     const oadharprooffront=req.body.oadharprooffront;
     const oadharproofback=req.body.oadharproofback;
     const opanproof=req.body.opanproof;
@@ -100,6 +111,7 @@ router.route('/').post((req, res) => {
        ocstate,
        occity,
        oczipcode,
+       oadhar,
        oadharprooffront,
        oadharproofback,
        opanproof,
@@ -133,6 +145,7 @@ router.route('/update/:id').post((req,res)=>{
     enrollfleetowner.ocstate=req.body.ocstate;
     enrollfleetowner.occity=req.body.occity;
     enrollfleetowner.oczipcode=req.body.oczipcode;
+    enrollfleetowner.oadhar=req.body.oadhar;
     enrollfleetowner.oadharprooffront=req.body.oadharprooffront;
     enrollfleetowner.oadharproofback=req.body.oadharproofback;
     enrollfleetowner.opanproof=req.body.opanproof;

@@ -69,7 +69,7 @@ router.route('/').post((req, res) => {
     const driverdetails=[{
         ddrivername:req.body.ddrivername,
         ddriverid:req.body.ddriverid,
-        ddgender:req.body.dgender,
+        dgender:req.body.dgender,
         dpermanentaddress:req.body.dpermanentaddress,
         dpresentaddress:req.body.dpresentaddress,
         ddateofbirth:req.body.ddateofbirth,

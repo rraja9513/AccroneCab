@@ -39,6 +39,7 @@ const supportcontactsettingRouter=require('./routes/supportcontactsetting');
 const tripcancelmessagesettingRouter=require('./routes/tripcancelmessagesetting');
 const driverbenifitschemeRouter=require('./routes/driverbenifitscheme');
 const enrollfleetownerRouter=require('./routes/enrollfleetowner');
+const enrollpassengerRouter=require('./routes/enrollpassenger');
 app.use('/admin',adminRouter);
 app.use('/corporate',corporateRouter);
 app.use('/vehicle',vehicleRouter);
@@ -53,6 +54,7 @@ app.use('/supportcontactsetting',supportcontactsettingRouter);
 app.use('/tripcancelmessagesetting',tripcancelmessagesettingRouter);
 app.use('/driverbenifitscheme',driverbenifitschemeRouter);
 app.use('/enrollfleetowner',enrollfleetownerRouter);
+app.use('/enrollpassenger',enrollpassengerRouter);
 app.listen(port,function(){
     console.log("Server started Successfully");
 });

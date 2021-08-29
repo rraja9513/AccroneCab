@@ -12,8 +12,10 @@ router.route('/').post((req, res) => {
 //   });
   router.route('/add').post((req,res)=>{
     const referalpoint = req.body.referalpoint;
+    const expdate = Date(req.body.expdate);
     const newReferalpointsetting=new Referalpointsetting({
-       referalpoint
+       referalpoint,
+       expdate
     })
     newReferalpointsetting.save()
   .then(() => res.json('Referalpointsetting added!'))

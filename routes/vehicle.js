@@ -1,4 +1,28 @@
 const router=require('express').Router();
+const multer=require('multer');
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './uploads/');
+  },
+  filename: function(req, file, cb) {
+      cb(null, Date.now() + file.originalname);  
+  }
+});
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
 let Vehicle=require('../models/vehicle.model');
 router.route('/').post((req, res) => {
     Vehicle.find()
@@ -10,10 +34,10 @@ router.route('/').post((req, res) => {
       .then(vehicles => res.json(vehicles))
       .catch(err => res.status(400).json('Error: ' + err));
   });
-  router.route('/add').post((req,res)=>{
+  router.post('/add',upload.single('vehicleicon'),(req,res,next)=>{
     const vehiclename = req.body.vehiclename;
     const vehicletype = req.body.vehicletype;
-    const vehicleicon=req.body.vehicleicon;
+    const vehicleicon=req.file.path;
     const seatingcapacity=req.body.seatingcapacity;
     const pricinglogic=req.body.pricinglogic;
     const initialwaitingtime=req.body.initialwaitingtime;
@@ -67,12 +91,12 @@ router.route('/').post((req, res) => {
   .then(() => res.json('Vehicle added!'))
   .catch(err => res.status(400).json('Error: ' + err));
 });
-  router.route('/update/:id').post((req,res)=>{
+router.post('/update/:id',upload.single('vehicleicon'),(req,res,next)=>{
   Vehicle.findById(req.params.id)
     .then(vehicle => {
       vehicle.vehiclename = req.body.vehiclename;
       vehicle.vehicletype = req.body.vehicletype;
-      vehicle.vehicleicon=req.body.vehicleicon;
+      vehicle.vehicleicon=req.file.path;
       vehicle.seatingcapacity=req.body.seatingcapacity;
       vehicle.pricinglogic=req.body.pricinglogic;
       vehicle.initialwaitingtime=req.body.initialwaitingtime;

@@ -3,7 +3,10 @@ const Schema=mongoose.Schema;
 const referalpointsettingSchema=new Schema(
     {
       referalpoint:{
-          type:String,
+          type:String
+      },
+      expdate:{
+          type:Date
       }
     },
     {

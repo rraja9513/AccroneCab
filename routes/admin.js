@@ -1,13 +1,38 @@
 const router=require('express').Router();
 const passport=require('passport');
+const multer=require('multer');
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './uploads/');
+  },
+  filename: function(req, file, cb) {
+      cb(null, Date.now() + file.originalname);  
+  }
+});
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
+// const upload=multer({dest:'uploads/'});
 let Admin=require('../models/admin.model');
 router.route('/').post((req, res) => {
     Admin.find()
       .then(admins => res.json(admins))
       .catch(err => res.status(400).json('Error: ' + err));
   });
-router.route('/signup').post((req,res)=>{
-  const Admins=new Admin({email:req.body.email,profilepicture:req.body.profilepicture,role:req.body.role,username:req.body.username,address:req.body.address,dateofbirth:req.body.dateofbirth,phonenumber:req.body.phonenumber});   
+router.post('/signup',upload.single('profilepicture'),(req,res,next)=>{
+  const Admins=new Admin({email:req.body.email,profilepicture:req.file.path,role:req.body.role,username:req.body.username,address:req.body.address,dateofbirth:req.body.dateofbirth,phonenumber:req.body.phonenumber});   
         Admin.register(Admins,req.body.password,function(err,admin){
             if(err)
             {

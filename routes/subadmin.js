@@ -1,4 +1,28 @@
 const router=require('express').Router();
+const multer=require('multer');
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './uploads/');
+  },
+  filename: function(req, file, cb) {
+      cb(null, Date.now() + file.originalname);  
+  }
+});
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
 let Subadmin=require('../models/subadmin.model');
 router.route('/').post((req, res) => {
     Subadmin.find()
@@ -15,10 +39,10 @@ router.route('/').post((req, res) => {
       .then(names => res.json(names))
       .catch(err => res.status(400).json('Error: ' + err));
   });
-  router.route('/add').post((req,res)=>{
+  router.post('/add',upload.single('profilepicture'),(req,res,next)=>{
     const name = req.body.name;
     const email = req.body.email;
-    const profilepicture=req.body.profilepicture;
+    const profilepicture=req.file.path;
     const role=req.body.role;
     const password=req.body.password;
     const newSubadmin=new Subadmin({
@@ -32,12 +56,12 @@ router.route('/').post((req, res) => {
   .then(() => res.json('Subadmin added!'))
   .catch(err => res.status(400).json('Error: ' + err));
 });
-  router.route('/update/:id').post((req,res)=>{
+ router.post('/update/:id',upload.single('profilepicture'),(req,res,next)=>{
   Subadmin.findById(req.params.id)
     .then(subadmin => {
       subadmin.name = req.body.name;
       subadmin.email = req.body.email;
-      subadmin.profilepicture=req.body.profilepicture;
+      subadmin.profilepicture=req.file.path;
       subadmin.role=req.body.role;
       subadmin.password=req.body.password;
       subadmin.save()

@@ -34,9 +34,10 @@ router.route('/').post((req, res) => {
       .then(vehicles => res.json(vehicles))
       .catch(err => res.status(400).json('Error: ' + err));
   });
-  router.route('/add').post((req, res) => {
+  router.post('/add',upload.single('vehicleicon'),(req,res,next)=>{
     const vehiclename = req.body.vehiclename;
     const vehicletype = req.body.vehicletype;
+    const vehicleicon = req.file.path;
     const seatingcapacity=req.body.seatingcapacity;
     const pricinglogic=req.body.pricinglogic;
     const initialwaitingtime=req.body.initialwaitingtime;
@@ -74,6 +75,7 @@ router.route('/').post((req, res) => {
     const newVehicle=new Vehicle({
        vehiclename,
        vehicletype,
+       vehicleicon,
        seatingcapacity,
        pricinglogic,
        initialwaitingtime,
@@ -89,11 +91,12 @@ router.route('/').post((req, res) => {
   .then(() => res.json('Vehicle added!'))
   .catch(err => res.status(400).json('Error: ' + err));
 });
-router.route('/update/:id').post((req, res) => {
+router.post('/update/:id',upload.single('vehicleicon'),(req,res,next)=>{
   Vehicle.findById(req.params.id)
     .then(vehicle => {
       vehicle.vehiclename = req.body.vehiclename;
       vehicle.vehicletype = req.body.vehicletype;
+      vehicle.vehicleicon = req.file.path;
       vehicle.seatingcapacity=req.body.seatingcapacity;
       vehicle.pricinglogic=req.body.pricinglogic;
       vehicle.initialwaitingtime=req.body.initialwaitingtime;

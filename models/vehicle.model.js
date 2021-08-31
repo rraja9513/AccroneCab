@@ -8,6 +8,9 @@ const vehicleSchema=new Schema(
       vehicletype:{
           type:String
       },
+      vehicleicon:{
+        type:String
+    },
     seatingcapacity:{
         type:String
     },

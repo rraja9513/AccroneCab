@@ -53,6 +53,18 @@ router.post('/signup',upload.single('profilepicture'),(req,res,next)=>{
             }
         })
     });
+    router.post('/update/:id',upload.single('profilepicture'),(req,res,next)=>{
+      Admin.findById(req.params.id)
+        .then(admin => {
+          admin.username = req.body.username;
+          admin.email = req.body.email;
+          admin.profilepicture = req.file.path;
+          admin.save()
+            .then(() => res.json('Admin updated!'))
+            .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+    });
 router.route('/login').post((req,res)=>{
    if(!req.body.email){
     res.json({success: false, message: "email  was not given"})

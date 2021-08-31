@@ -31,6 +31,11 @@ router.route('/').post((req, res) => {
       .then(admins => res.json(admins))
       .catch(err => res.status(400).json('Error: ' + err));
   });
+  router.route('/:id').get((req, res) => {
+    Admin.findById(req.params.id)
+      .then(admin => res.json(admin))
+      .catch(err => res.status(400).json('Error: ' + err));
+  });
 router.post('/signup',upload.single('profilepicture'),(req,res,next)=>{
   const Admins=new Admin({email:req.body.email,profilepicture:req.file.path,role:req.body.role,username:req.body.username,address:req.body.address,dateofbirth:req.body.dateofbirth,phonenumber:req.body.phonenumber});   
         Admin.register(Admins,req.body.password,function(err,admin){

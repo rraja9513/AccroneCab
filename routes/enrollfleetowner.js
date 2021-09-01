@@ -20,7 +20,7 @@ router.route('/').post((req, res) => {
       .then(enrollfleetowners => res.json(enrollfleetowners))
       .catch(err => res.status(400).json('Error: ' + err));
   });
-  router.route('/add').post((req,res)=>{
+  router.post('/add',upload.array('images',16),(req,res,next)=>{
     const ofirstname=req.body.ofirstname;
     const omiddlename=req.body.omiddlename;
     const olastname=req.body.olastname;
@@ -39,9 +39,9 @@ router.route('/').post((req, res) => {
     const occity=req.body.occity;
     const oczipcode=req.body.oczipcode;
     const oadhar=req.body.oadhar;
-    const oadharprooffront=req.body.oadharprooffront;
-    const oadharproofback=req.body.oadharproofback;
-    const opanproof=req.body.opanproof;
+    const oadharprooffront=req.files[0].path;
+    const oadharproofback=req.files[1].path;
+    const opanproof=req.files[2].path;
     const vehicledetails=[{
         vvehiclemodel:req.body.vvehiclemodel,
         vvehicletype:req.body.vvehicletype,
@@ -58,13 +58,13 @@ router.route('/').post((req, res) => {
         vtaxrenewal:req.body.vtaxrenewal,
         vstatepermit:req.body.vstatepermit,
         vnationalpermit:req.body.vnationalpermit,
-        vstatepermitdocument:req.body.vstatepermitdocument,
-        vnationalpermitdocument:req.body.vnationalpermitdocument,
-        vinsurancedocument:req.body.vinsurancedocument,
-        vvehiclepicture:req.body.vvehiclepicture,
-        vemissiontestdocument:req.body.vemissiontestdocument,
-        vrccardproof:req.body.vrccardproof,
-        vtaxrenewalproof:req.body.vtaxrenewalproof
+        vstatepermitdocument:req.files[3].path,
+        vnationalpermitdocument:req.files[4].path,
+        vinsurancedocument:req.files[5].path,
+        vvehiclepicture:req.files[6].path,
+        vemissiontestdocument:req.files[7].path,
+        vrccardproof:req.files[8].path,
+        vtaxrenewalproof:req.files[9].path
     }];
     const driverdetails=[{
         ddrivername:req.body.ddrivername,
@@ -80,18 +80,18 @@ router.route('/').post((req, res) => {
         ddrivinglicence:req.body.ddrivinglicence,
         dlanguagesknown:req.body.dlanguagesknown,
         dpoliceverificationcertificate:req.body.dpoliceverificationcertificate,
-        ddrivinglicenceproof:req.body.ddrivinglicenceproof,
-        dpoliceverificationproof:req.body.dpoliceverificationproof,
-        dinsuranceproof:req.body.dinsuranceproof,
-        dfrontadharproof:req.body.dfrontadharproof,
-        dbackadharproof:req.body.dbackadharproof
+        ddrivinglicenceproof:req.files[10].path,
+        dpoliceverificationproof:req.files[11].path,
+        dinsuranceproof:req.files[12].path,
+        dfrontadharproof:req.files[13].path,
+        dbackadharproof:req.files[14].path
     }];
     const bankdetails={
         bbankname:req.body.bbankname,
         baccountnumber:req.body.baccountnumber,
         bbranchcode:req.body.bbranchcode,
         bifsccode:req.body.bifsccode,
-        bpassbookphoto:req.body.bpassbookphoto
+        bpassbookphoto:req.files[15].path
     };
     const newEnrollfleetowner=new Enrollfleetowner({
        ofirstname,
@@ -125,7 +125,7 @@ router.route('/').post((req, res) => {
   .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/update/:id').post((req,res)=>{
+router.post('/update/:id',upload.array('images',16),(req,res,next)=>{
   Enrollfleetowner.findById(req.params.id)
     .then(enrollfleetowner => {
     enrollfleetowner.ofirstname=req.body.ofirstname;
@@ -146,9 +146,9 @@ router.route('/update/:id').post((req,res)=>{
     enrollfleetowner.occity=req.body.occity;
     enrollfleetowner.oczipcode=req.body.oczipcode;
     enrollfleetowner.oadhar=req.body.oadhar;
-    enrollfleetowner.oadharprooffront=req.body.oadharprooffront;
-    enrollfleetowner.oadharproofback=req.body.oadharproofback;
-    enrollfleetowner.opanproof=req.body.opanproof;
+    enrollfleetowner.oadharprooffront=req.files[0].path;
+    enrollfleetowner.oadharproofback=req.files[1].path;
+    enrollfleetowner.opanproof=req.files[2].path;
     enrollfleetowner.vehicledetails=[{
         vvehiclemodel:req.body.vvehiclemodel,
         vvehicletype:req.body.vvehicletype,
@@ -165,13 +165,13 @@ router.route('/update/:id').post((req,res)=>{
         vtaxrenewal:req.body.vtaxrenewal,
         vstatepermit:req.body.vstatepermit,
         vnationalpermit:req.body.vnationalpermit,
-        vstatepermitdocument:req.body.vstatepermitdocument,
-        vnationalpermitdocument:req.body.vnationalpermitdocument,
-        vinsurancedocument:req.body.vinsurancedocument,
-        vvehiclepicture:req.body.vvehiclepicture,
-        vemissiontestdocument:req.body.vemissiontestdocument,
-        vrccardproof:req.body.vrccardproof,
-        vtaxrenewalproof:req.body.vtaxrenewalproof
+        vstatepermitdocument:req.files[3].path,
+        vnationalpermitdocument:req.files[4].path,
+        vinsurancedocument:req.files[5].path,
+        vvehiclepicture:req.files[6].path,
+        vemissiontestdocument:req.files[7].path,
+        vrccardproof:req.files[8].path,
+        vtaxrenewalproof:req.files[9].path
     }];
     enrollfleetowner.driverdetails=[{
         ddrivername:req.body.ddrivername,
@@ -187,18 +187,18 @@ router.route('/update/:id').post((req,res)=>{
         ddrivinglicence:req.body.ddrivinglicence,
         dlanguagesknown:req.body.dlanguagesknown,
         dpoliceverificationcertificate:req.body.dpoliceverificationcertificate,
-        ddrivinglicenceproof:req.body.ddrivinglicenceproof,
-        dpoliceverificationproof:req.body.dpoliceverificationproof,
-        dinsuranceproof:req.body.dinsuranceproof,
-        dfrontadharproof:req.body.dfrontadharproof,
-        dbackadharproof:req.body.dbackadharproof
+        ddrivinglicenceproof:req.files[10].path,
+        dpoliceverificationproof:req.files[11].path,
+        dinsuranceproof:req.files[12].path,
+        dfrontadharproof:req.files[13].path,
+        dbackadharproof:req.files[14].path
     }];
     enrollfleetowner.bankdetails={
         bbankname:req.body.bbankname,
         baccountnumber:req.body.baccountnumber,
         bbranchcode:req.body.bbranchcode,
         bifsccode:req.body.bifsccode,
-        bpassbookphoto:req.body.bpassbookphoto
+        bpassbookphoto:req.files[15].path
     };
       enrollfleetowner.save()
         .then(() => res.json('Enrollfleetowner updated!'))
@@ -206,7 +206,7 @@ router.route('/update/:id').post((req,res)=>{
     })
     .catch(err => res.status(400).json('Error: ' + err));
 });
-router.route('/updatevehicle/:id').post((req,res)=>{
+router.post('/updatevehicle/:id',upload.array('images',7),(req,res,next)=>{
     Enrollfleetowner.findByIdAndUpdate(req.params.id,
         {$push: {vehicledetails:{ vvehiclemodel:req.body.vvehiclemodel,
             vvehicletype:req.body.vvehicletype,
@@ -223,13 +223,13 @@ router.route('/updatevehicle/:id').post((req,res)=>{
             vtaxrenewal:req.body.vtaxrenewal,
             vstatepermit:req.body.vstatepermit,
             vnationalpermit:req.body.vnationalpermit,
-            vstatepermitdocument:req.body.vstatepermitdocument,
-            vnationalpermitdocument:req.body.vnationalpermitdocument,
-            vinsurancedocument:req.body.vinsurancedocument,
-            vvehiclepicture:req.body.vvehiclepicture,
-            vemissiontestdocument:req.body.vemissiontestdocument,
-            vrccardproof:req.body.vrccardproof,
-            vtaxrenewalproof:req.body.vtaxrenewalproof}}},
+            vstatepermitdocument:req.files[0].path,
+            vnationalpermitdocument:req.files[1].path,
+            vinsurancedocument:req.files[2].path,
+            vvehiclepicture:req.files[3].path,
+            vemissiontestdocument:req.files[4].path,
+            vrccardproof:req.files[5].path,
+            vtaxrenewalproof:req.files[6].path}}},
         {safe: true, upsert: true},
         function(err, doc) {
             if(err){
@@ -240,7 +240,7 @@ router.route('/updatevehicle/:id').post((req,res)=>{
         }
         )
   });
-  router.route('/updatedriver/:id').post((req,res)=>{
+  router.post('/updatedriver/:id',upload.array('images',5),(req,res,next)=>{
     Enrollfleetowner.findByIdAndUpdate(req.params.id,
         {$push: {driverdetails:{ddrivername:req.body.ddrivername,
           ddriverid:req.body.ddriverid,
@@ -255,11 +255,11 @@ router.route('/updatevehicle/:id').post((req,res)=>{
           ddrivinglicence:req.body.ddrivinglicence,
           dlanguagesknown:req.body.dlanguagesknown,
           dpoliceverificationcertificate:req.body.dpoliceverificationcertificate,
-          ddrivinglicenceproof:req.body.ddrivinglicenceproof,
-          dpoliceverificationproof:req.body.dpoliceverificationproof,
-          dinsuranceproof:req.body.dinsuranceproof,
-          dfrontadharproof:req.body.dfrontadharproof,
-          dbackadharproof:req.body.dbackadharproof}}},
+          ddrivinglicenceproof:req.files[0].path,
+          dpoliceverificationproof:req.files[1].path,
+          dinsuranceproof:req.files[2].path,
+          dfrontadharproof:req.files[3].path,
+          dbackadharproof:req.files[4].path}}},
         {safe: true, upsert: true},
         function(err, doc) {
             if(err){
